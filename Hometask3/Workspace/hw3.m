@@ -54,7 +54,7 @@ for constellation = 1:5
     modData = mapping(bits, constellation); % модуляция
     %> Функция которую вы должы написать
     chackBits = demapping (modData, constellation, 0);
-    ERR = Nerr (bits, chackBits)
+    ERR = Nerr (bits, chackBits);
     if ERR == 0
         ans = 'Проверка 1.1 - успех'
         ConstName = ConstName

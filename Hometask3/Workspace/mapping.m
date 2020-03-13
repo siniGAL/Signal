@@ -25,7 +25,7 @@ function symbols = mapping (bits, constellation, BitInSym)
         case 2 % QPSK
             symbols = [];
             N = length(bits)/4;
-            z1 = [-1-1i];%z = [-1-1i, -1+1i, 1+1i, 1-1i]
+            z1 = [-1-1i];
             z2 = [-1+1i];
             z3 = [1+1i];
             z4 = [1-1i];
@@ -62,12 +62,12 @@ function symbols = mapping (bits, constellation, BitInSym)
             
         case 3 % 8PSK
             r = 1;
-            angle_start = 22.5;
+            angle_start = pi/8;
             symbol = [];
             symbols = [];
-            for angle_fi = angle_start:45:360
-                I = r*cosd(angle_fi);
-                Q = r*sind(angle_fi);                
+            for angle_fi = angle_start:pi/4:pi*2
+                I = r*cos(angle_fi);
+                Q = r*sin(angle_fi);                
                 symbol = [symbol complex(I,Q)];
             end
             for bit = 1:3:length(bits)

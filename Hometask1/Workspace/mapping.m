@@ -25,7 +25,7 @@ function symbols = mapping (bits, constellation, BitInSym)
         case 2 % QPSK
             symbols = [];
             N = length(bits)/BitInSym;
-            z1 = [-1-1i];%z = [-1-1i, -1+1i, 1+1i, 1-1i]
+            z1 = [-1-1i];
             z2 = [-1+1i];
             z3 = [1+1i];
             z4 = [1-1i];
