@@ -80,13 +80,7 @@ function out = demapping (symbols, constellation, softFlag, SNR)
                              -1+1i, -3+1i, -1+3i, -3+3i, -1-1i, -3-1i, -1-3i, -3-3i];
                 z_code = [1,1,0,1; 1,0,0,1; 1,1,0,0; 1,0,0,0; 1,1,1,1; 1,0,1,1; 1,1,1,0; 1,0,1,0;...
                           0,1,0,1; 0,0,0,1; 0,1,0,0; 0,0,0,0; 0,1,1,1; 0,0,1,1; 0,1,1,0; 0,0,1,0];
-                z = 0;
-                for x=1:16
-                    y = z_complex(x)*conj(z_complex(x));
-                    z = z + y;
-                end
-                norm = sqrt(z/numel(z_complex));
-                z_complex = z_complex/norm;
+                z_complex = z_complex/(sqrt((sum(z_complex(:).*conj(z_complex(:))))/numel(z_complex)));
                 if softFlag == 0
                     r = abs(z_complex - symbols(:));
                     [~, numb] = min(r,[],2);

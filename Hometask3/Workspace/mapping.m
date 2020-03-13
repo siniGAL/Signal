@@ -150,7 +150,10 @@ function symbols = mapping (bits, constellation, BitInSym)
                     end
                  end
             case 5 % 16QAM
-                dots = [1+1i, 3+1i, 1+3i, 3+3i, -1+1i, -3+1i, -1+3i, -3+3i, -1-1i, -3-1i, -1-3i, -3-3i, 1-1i, 3-1i, 1-3i, 3-3i];
+                dots = [1+1i, 3+1i, 1+3i, 3+3i, 1-1i, 3-1i, 1-3i, 3-3i,...
+                             -1+1i, -3+1i, -1+3i, -3+3i, -1-1i, -3-1i, -1-3i, -3-3i];
+                dots_code = [1,1,0,1; 1,0,0,1; 1,1,0,0; 1,0,0,0; 1,1,1,1; 1,0,1,1; 1,1,1,0; 1,0,1,0;...
+                          0,1,0,1; 0,0,0,1; 0,1,0,0; 0,0,0,0; 0,1,1,1; 0,0,1,1; 0,1,1,0; 0,0,1,0];
                 y = 0;
                 symbols = [];
                 for i=1:16
@@ -160,37 +163,37 @@ function symbols = mapping (bits, constellation, BitInSym)
                 norm = sqrt(y/length(dots));
                 for bit = 1:4:length(bits)
                     i = bits(bit:bit+3);
-                    if i == [ 1 1 0 1];
+                    if i == dots_code(1,:);
                     symbols = [symbols dots(1)/norm];
-                    elseif i == [1 0 0 1]
+                    elseif i == dots_code(2,:)
                     symbols = [symbols dots(2)/norm];
-                    elseif i == [1 1 0 0];
+                    elseif i == dots_code(3,:);
                     symbols = [symbols dots(3)/norm];
-                    elseif i == [1 0 0 0];
+                    elseif i == dots_code(4,:);
                     symbols = [symbols dots(4)/norm];
-                    elseif i == [0 1 0 1];
+                    elseif i == dots_code(5,:);
                     symbols = [symbols dots(5)/norm];
-                    elseif i == [0 0 0 1];
+                    elseif i == dots_code(6,:);
                     symbols = [symbols dots(6)/norm];
-                    elseif i == [0 1 0 0];
+                    elseif i == dots_code(7,:);
                     symbols = [symbols dots(7)/norm];
-                    elseif i == [0 0 0 0];
+                    elseif i == dots_code(8,:);
                     symbols = [symbols dots(8)/norm];
-                    elseif i == [0 1 1 1];
+                    elseif i == dots_code(9,:);
                     symbols = [symbols dots(9)/norm];
-                    elseif i == [0 0 1 1];
+                    elseif i == dots_code(10,:);
                     symbols = [symbols dots(10)/norm];
-                    elseif i == [0 1 1 0];
+                    elseif i == dots_code(11,:);
                     symbols = [symbols dots(11)/norm];
-                    elseif i == [0 0 1 0];
+                    elseif i == dots_code(12,:);
                     symbols = [symbols dots(12)/norm];
-                    elseif i == [1 1 1 1];
+                    elseif i == dots_code(13,:);
                     symbols = [symbols dots(13)/norm];
-                    elseif i == [1 0 1 1];
+                    elseif i == dots_code(14,:);
                     symbols = [symbols dots(14)/norm];
-                    elseif i == [1 1 1 0];
+                    elseif i == dots_code(15,:);
                     symbols = [symbols dots(15)/norm];
-                    elseif i == [1 0 1 0];
+                    elseif i == dots_code(16,:);
                     symbols = [symbols dots(16)/norm];
                     end
                 end
