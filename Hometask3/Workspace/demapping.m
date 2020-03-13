@@ -80,21 +80,21 @@ function out = demapping (symbols, constellation, softFlag, SNR)
                              -1+1i, -3+1i, -1+3i, -3+3i, -1-1i, -3-1i, -1-3i, -3-3i];
                 z_code = [1,1,0,1; 1,0,0,1; 1,1,0,0; 1,0,0,0; 1,1,1,1; 1,0,1,1; 1,1,1,0; 1,0,1,0;...
                           0,1,0,1; 0,0,0,1; 0,1,0,0; 0,0,0,0; 0,1,1,1; 0,0,1,1; 0,1,1,0; 0,0,1,0];
-                z_complex = z_complex/(sqrt((sum(z_complex(:).*conj(z_complex(:))))/numel(z_complex)));
-                if softFlag == 0
+                z_complex = z_complex/(sqrt((sum(z_complex(:).*conj(z_complex(:))))/numel(z_complex))); % Нормировка созвездия
+                if softFlag == 0 % Жесткое решение
                     r = abs(z_complex - symbols(:));
                     [~, numb] = min(r,[],2);
                     out = [z_code(numb(:, 1), :)];
                     out=out.';
                     out=out(:);
                     out=out.';
-                else
+                else % Мягкое решение
                     out = [];
                     for iter = 1:numel(z_code(1,:))
-                        f = find(z_code(:,iter));
-                        x = sum(exp(-1*(((abs(symbols(:) - z_complex(f))).^2)./(SNR))),2);
-                        f = find(~z_code(:,iter));
-                        y = sum(exp(-1*(((abs(symbols(:) - z_complex(f))).^2)./(SNR))),2);
+                        f = find(z_code(:,iter)); % Все позиции бит отличных от нуля
+                        x = sum(exp(-1*(((abs(symbols(:) - z_complex(f))).^2)./(SNR))),2); % Вычисление числителя. Возможно не правильно записана формула:(
+                        f = find(~z_code(:,iter)); % Позиции нулевых бит
+                        y = sum(exp(-1*(((abs(symbols(:) - z_complex(f))).^2)./(SNR))),2); % Вычисление знаменателя. Возможно не правильно записана формула:(
                         out = [out, log(x./y)];
                     end
                     out=out.';
